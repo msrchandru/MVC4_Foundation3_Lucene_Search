@@ -1,0 +1,174 @@
+﻿@model MVC4_Foundation3_Lucene_Search.Models.IndexingModel
+@{
+    ViewBag.Title = "Index";
+}
+<div id="showcase">
+    <div class="row">
+        <div class="twelve columns">
+           
+            @using (Html.BeginForm("CreateIndex", "Home", FormMethod.Post))
+            { 
+                @Html.ValidationSummary(true, "Search was unsuccessful. Please correct the errors and try again.")        
+                <fieldset>
+                    <legend>Index</legend>First Click to Index: &nbsp;&nbsp;
+                    <input id="btnCreateIndex" class="small button" type="submit" value="Create Index" />
+                </fieldset>  
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns">
+            @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+            { 
+                @Html.ValidationSummary(true, "Search was unsuccessful. Please correct the errors and try again.")        
+                <fieldset>
+                    <legend>Simple Search</legend>
+                    <div style="margin-bottom: 20px; background-color: #D8D1CA; padding: 15px;">
+                        <input id="lnkbtnSimpleSearch" class="small button" type="submit" value="Simple Search" />
+                        <div id="idSimple" runat="server">
+                            Enter the text to search &nbsp;&nbsp;<input id="txtSearchval" type="text" />
+                            &nbsp;&nbsp;
+                            <input id="btnSearch" class="small button" type="submit" value="Search" />
+                        </div>
+                    </div>
+                </fieldset>  
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row" >
+        <div class="twelve columns">
+            <div>
+                <div>
+                  <fieldset>
+                    <legend>Searched Results</legend>
+                    <table >
+                        <tr>
+                           @* <th>
+                                PageName
+                            </th>
+                            <th>
+                                Tag
+                            </th>
+                            <th>
+                                ContentText
+                            </th>
+                            <th>
+                                Priority
+                            </th>*@
+                             <td>
+                                PageName
+                            </td>
+                            <td>
+                                Tag
+                            </td>
+                            <td>
+                                ContentText
+                            </td>
+                            <td>
+                                Priority
+                            </td>
+                        </tr>
+                        @foreach (System.Data.DataRow dr in ViewBag.AuthorList.Rows)
+                        {
+
+                            <tr>
+                                <td>
+                                    @dr["PageName"].ToString()
+                                </td>
+                                <td>
+                                    @dr["Tag"].ToString()
+                                </td>
+                                <td>
+                                    @dr["ContentText"].ToString()
+                                </td>
+                                <td>
+                                    @dr["Priority"].ToString()
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<script type="text/javascript">
+$(document).ready(function() {
+ $('#clsAdvance').hide();   
+    $('#ddl1').on("change", function() {
+		if($(this).val()=="1"){
+             $('#td-Methods').hide();
+			 $('#td-industry').show();
+			 $('#td-customer').show();
+        }
+        else
+        {
+          $('#td-Methods').show();
+        }
+    });
+	
+</script>
+@*@using Prototyping.Ipsum
+@using Prototyping.Placeholdit
+@*The prototyping helper allows us to build fast demo code
+@using Prototyping.Ipsum
+@using Prototyping.Placeholdit
+<div id="showcase">
+    <div class="row">
+        <div class="six columns">@Html.Ipsum().h1().h4(wordCount: 8)
+            <p class="action">
+                <a href="#" class="nice large orange button">Buy Now</a>
+            </p>
+        </div>
+        <div class="six columns">
+                @Html.Placehold(width: 468, height: 304, text: "product slide 1",
+                backgroundColor:"A7D5F2")
+        </div>
+    </div>
+</div>
+<div id="features">
+	<div class="row">
+		<div class="four columns">@Html.Ipsum().h3()
+		@Html.Placehold(width: 300, height: 200, text: "A")</div>
+		<div class="four columns">@Html.Ipsum().h3()
+		@Html.Placehold(width: 300, height: 200, text: "B")</div>
+		<div class="four columns">@Html.Ipsum().h3()
+		@Html.Placehold(width: 300, height: 200, text: "C")</div>
+	</div>
+</div>
+<div id="benefits">
+	<div class="row">
+		<div class="eight columns">
+		  @Html.Ipsum().h3().p().h4().p().h4().p()
+		</div>
+		<div class="four columns">
+		  @Html.Ipsum().h3().p(paragraphCount: 1, sentenceCount: 3)
+		  <p>
+			<a href="#" class="nice orange button">Buy Now</a>
+		  </p>
+		</div>
+	</div>
+</div>
+<div id="media">
+	<div class="row">
+		<div class="twelve columns">
+		  @Html.Ipsum().h3()
+		</div>
+	</div>
+	<div class="row">
+		<div class="six columns">
+		  @Html.Ipsum().h4()
+		  @Html.Placehold(width: 468, height: 304, text: "product video")
+		</div>
+		<div class="six columns">
+		  @Html.Ipsum().h4()
+		  @Html.Placehold(width: 468, height: 304, text: "product video")
+		</div>
+	</div>
+</div>*@
