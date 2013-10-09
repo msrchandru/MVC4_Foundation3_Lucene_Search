@@ -63,3 +63,4 @@ E:\Projects\Dot Net\DMI\Novartis\MVC4_Foundation3_Lucene_Search\MVC4_Foundation3
 E:\Projects\Dot Net\DMI\Novartis\MVC4_Foundation3_Lucene_Search\MVC4_Foundation3_Lucene_Search\bin\SpellChecker.Net.dll
 E:\Projects\Dot Net\DMI\Novartis\MVC4_Foundation3_Lucene_Search\MVC4_Foundation3_Lucene_Search\bin\Lucene.Net.Contrib.Highlighter.xml
 E:\Projects\Dot Net\DMI\Novartis\MVC4_Foundation3_Lucene_Search\MVC4_Foundation3_Lucene_Search\bin\SearchingTextinDB.pdb
+E:\Projects\Dot Net\DMI\Novartis\MVC4_Foundation3_Lucene_Search\MVC4_Foundation3_Lucene_Search\bin\GridMvc.dll

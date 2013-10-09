@@ -2,10 +2,48 @@
 @{
     ViewBag.Title = "Index";
 }
+<script type="text/javascript">
+
+
+
+    function checkSearch() {
+        debugger;
+        var $j = jQuery.noConflict();
+        var seachText = document.getElementById("SearchValue");
+        if (seachText.value == "") {
+            alert("Please Enter the text to search")
+            tableview.setAttribute("style", "display:none;");
+            return false;
+        }
+        else {
+            tableview.removeAttribute("style");
+
+        }
+
+
+
+        return true;
+    }
+    function advanceSearch() {
+        $('#divsimplesearch').hide();
+        $('#divadvancesearch').show();
+    }
+    function simpleSearch() {
+        $('#divadvancesearch').hide();
+        $('#divsimplesearch').show();
+    }
+        window.onload = function () {
+           // tableheadrow.removeAttribute("style");
+            //  tableheadrow.setAttribute("style", "display:none;");
+            
+            $('#divadvancesearch').hide();
+           // tableview.setAttribute("style", "display:none;");
+        };
+
+</script>
 <div id="showcase">
     <div class="row">
         <div class="twelve columns">
-           
             @using (Html.BeginForm("CreateIndex", "Home", FormMethod.Post))
             { 
                 @Html.ValidationSummary(true, "Search was unsuccessful. Please correct the errors and try again.")        
@@ -24,96 +62,127 @@
                 <fieldset>
                     <legend>Simple Search</legend>
                     <div style="margin-bottom: 20px; background-color: #D8D1CA; padding: 15px;">
-                        <input id="lnkbtnSimpleSearch" class="small button" type="submit" value="Simple Search" />
-                        <div id="idSimple" runat="server">
-                            Enter the text to search &nbsp;&nbsp;<input id="txtSearchval" type="text" />
-                            &nbsp;&nbsp;
-                            <input id="btnSearch" class="small button" type="submit" value="Search" />
+                        @* <input id="lnkbtnSimpleSearch" class="small button" type="submit" value="Simple Search" />*@
+                        <label id="lnkbtnSimpleSearch" onclick="simpleSearch();" style="background-color: #FF6600;
+                            color: White; padding-top: 5px; padding-bottom: 5px; padding-left: 5px;" for="male">
+                            <u>Simple Search</u></label>
+                        <div id="divsimplesearch">
+                            <div id="idSimple" runat="server">
+                                Enter the text to search &nbsp;&nbsp; @Html.TextBoxFor(m => m.SearchValue)
+                                &nbsp;&nbsp;
+                                <input id="btnSearch" class="small button" type="submit" value="Search" onclick="javascript:return checkSearch();" />
+                            </div>
                         </div>
                     </div>
                 </fieldset>  
             }
         </div>
     </div>
-    <br />
-    <br />
-    <div class="row" >
+
+    <div class="row">
         <div class="twelve columns">
-            <div>
-                <div>
-                  <fieldset>
-                    <legend>Searched Results</legend>
-                    <table >
+            @using (Html.BeginForm("advanceSearch", "Home", FormMethod.Post))
+            { 
+                @Html.ValidationSummary(true, "Search was unsuccessful. Please correct the errors and try again.")        
+                <fieldset>
+                    <legend>Advanced Search</legend>
+                    <div style="margin-bottom: 20px; background-color: #D8D1CA; padding: 15px; ">
+                        @*<input id="lnkbtnAdvanceSearch" class="small button" type="submit" value="Advance Search" /> *@
+                        <label id="lnkbtnAdvanceSearch" onclick="advanceSearch();" style="background-color: #FF6600;
+                            color: White; padding-top: 5px; padding-bottom: 5px; padding-left: 5px;" for="male">
+                            <u>Advance Search</u></label>
+                        <div id="divadvancesearch">
+                            <div id="idAdvance">
+                                <label id="lblFindResult" style="font-bold: True;" for="male">
+                                    Find Results</label>
+                                with <strong>all</strong> of the words &nbsp;&nbsp;@Html.TextBoxFor(m => m.wiithallwords)&nbsp;&nbsp;
+                                with the <strong>exact phrase</strong>
+                                @Html.TextBoxFor(m => m.exactphrase)
+                                with <strong>at least one</strong> of the words
+                                @Html.TextBoxFor(m => m.leastWords)
+                                <strong>without</strong> the words
+                                @Html.TextBoxFor(m => m.withoutWords)
+                                <input id="btnWordSearch" class="small button" type="submit" value="Search" />
+                            </div>
+                        </div>
+                </fieldset>  
+            }
+        </div>
+    </div>
+</div>
+
+@*<div class="row">
+<div class="twelve columns>
+  @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.Id).Titled("Client ID");
+    columns.Add(c => c.Name).Titled("Name").Filterable(true);
+    columns.Add(c => c.Email).Titled("Email");
+}).WithPaging(3).Sortable(true)
+</div>
+</div>*@
+<div class="row">
+    <div class="twelve columns">
+        <div>
+            <div id="tableview" >
+                @* <fieldset>
+                    <legend>Searched Results</legend>*@
+                <table style="width:100%;">
+                    <tr id="tableheadrow" >
+                        <th>
+                            PageName
+                        </th>
+                        <th>
+                            Tag
+                        </th>
+                        <th>
+                            ContentText
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        @*   <td>
+                                PageName
+                            </td>
+                            <td>
+                                Tag
+                            </td>
+                            <td>
+                                ContentText
+                            </td>
+                            <td>
+                                Priority
+                            </td>*@
+                    </tr>
+                    @foreach (System.Data.DataRow dr in ViewBag.AuthorList.Rows)
+                    {
+                        if (dr != null)
+                        {
                         <tr>
-                           @* <th>
-                                PageName
-                            </th>
-                            <th>
-                                Tag
-                            </th>
-                            <th>
-                                ContentText
-                            </th>
-                            <th>
-                                Priority
-                            </th>*@
-                             <td>
-                                PageName
+                            <td>
+                                @dr["PageName"].ToString()
                             </td>
                             <td>
-                                Tag
+                                @dr["Tag"].ToString()
                             </td>
                             <td>
-                                ContentText
+                                @dr["ContentText"].ToString()
                             </td>
                             <td>
-                                Priority
+                                @dr["Priority"].ToString()
                             </td>
                         </tr>
-                        @foreach (System.Data.DataRow dr in ViewBag.AuthorList.Rows)
-                        {
-
-                            <tr>
-                                <td>
-                                    @dr["PageName"].ToString()
-                                </td>
-                                <td>
-                                    @dr["Tag"].ToString()
-                                </td>
-                                <td>
-                                    @dr["ContentText"].ToString()
-                                </td>
-                                <td>
-                                    @dr["Priority"].ToString()
-                                </td>
-                            </tr>
-
                         }
-                    </table>
-                    </fieldset>
-                </div>
+
+                    }
+                </table>
+                @* </fieldset>*@
             </div>
         </div>
     </div>
 </div>
-<br />
-<br />
-<script type="text/javascript">
-$(document).ready(function() {
- $('#clsAdvance').hide();   
-    $('#ddl1').on("change", function() {
-		if($(this).val()=="1"){
-             $('#td-Methods').hide();
-			 $('#td-industry').show();
-			 $('#td-customer').show();
-        }
-        else
-        {
-          $('#td-Methods').show();
-        }
-    });
-	
-</script>
+</div>
+
 @*@using Prototyping.Ipsum
 @using Prototyping.Placeholdit
 @*The prototyping helper allows us to build fast demo code
