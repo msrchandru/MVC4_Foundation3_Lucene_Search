@@ -2,6 +2,26 @@
 @{
     ViewBag.Title = "Index";
 }
+
+@*For BazaarVoice Start*@
+<script src="../../Scripts/bvapi.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $BV.configure("global", {
+        submissionContainerUrl: "http://www.default.com/submissionPage.html"
+    });
+</script>
+
+
+<div id="BVRRSummaryContainer">1</div>
+<div id="BVRRContainer">2</div>
+
+<script type="text/javascript">
+    $BV.ui("rr", "show_reviews", {
+        productId: "XXXXX"
+    });
+</script>
+
+@*For BazaarVoice End*@
 <script type="text/javascript">
 
 
